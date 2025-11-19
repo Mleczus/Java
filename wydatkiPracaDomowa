@@ -1,0 +1,109 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("\n------MENU------");
+        System.out.println("1. Dodaj nowy wydatek");
+        System.out.println("2. Pokaż historię wydatków");
+        System.out.println("3. Oblicz sumę wydatków");
+        System.out.println("4. Wyjdź\n");
+
+        System.out.print("Wybierz akcję: ");
+        int wybor = sc.nextInt();
+        sc.nextLine();
+
+        switch (wybor) {
+            case 1:
+                System.out.print("Nazwa: ");
+                String nazwa = sc.nextLine();
+
+                System.out.print("Kategoria: ");
+                String kategoria = sc.nextLine();
+
+                System.out.print("Kwota: ");
+                double kwota = sc.nextDouble();
+                sc.nextLine();
+
+                if (kwota <= 0) {
+                    System.out.println("Kwota musi być większa od 0!");
+                } else {
+                    LocalDateTime now = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    String dataZapis = now.format(formatter);
+
+                    try (FileWriter writer = new FileWriter("wydatki.txt", true)) {
+                        String linia = "[ " + dataZapis + " ] - Kategoria: " + kategoria + " - Kwota: " + kwota + " - Opis: " + nazwa + "\n";
+                        writer.write(linia);
+                        System.out.println("Wydatek zapisany.");
+                    } catch (IOException e) {
+                        System.out.println("Błąd zapisu: " + e.getMessage());
+                    }
+                }
+                break;
+            case 2:
+                System.out.println("\n--- HISTORIA WYDATKÓW ---\n");
+
+                try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader("wydatki.txt"))) {
+                    String linia;
+                    while ((linia = reader.readLine()) != null) {
+                        System.out.println(linia);
+                    }
+                } catch (IOException e) {
+                    System.out.println("Błąd odczytu: " + e.getMessage());
+                }
+                break;
+            case 3:
+                System.out.println("\n--- SUMA WYDATKÓW ---\n");
+
+                double suma = 0;
+
+                try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader("wydatki.txt"))) {
+                    String linia;
+
+                    while ((linia = reader.readLine()) != null) {
+
+                        if (linia.contains("Kwota:")) {
+
+                            Scanner s = new Scanner(linia);
+
+                            try {
+                                while (true) {
+                                    String slowo = s.next();
+
+                                    if (slowo.contains("Kwota:")) {
+                                        String kwotaString = s.next();
+                                        double kwotaZPliku = Double.parseDouble(kwotaString);
+                                        suma += kwotaZPliku;
+                                    }
+                                }
+                            } catch (java.util.NoSuchElementException e) {
+                            }
+                        }
+                    }
+
+                    System.out.println("Łączna suma wydatków: " + suma);
+
+                } catch (IOException e) {
+                    System.out.println("Błąd odczytu: " + e.getMessage());
+                }finally {
+                    System.out.println("Operacja zakończona pomyślnie.");
+                }
+                break;
+            case 4:
+                System.out.println("\nKoniec Operacji!");
+                System.exit(0);
+                break;
+            default:
+                System.out.println("Opcja niezaimplementowana lub nieprawidłowy wybór.");
+        }
+
+        sc.close();
+    }
+}
