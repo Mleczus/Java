@@ -81,13 +81,13 @@ public class Main {
                                         String kwotaString = s.next();
                                         double kwotaZPliku = Double.parseDouble(kwotaString);
                                         suma += kwotaZPliku;
+                                        System.out.println("Kwota: " + kwotaString);
                                     }
                                 }
                             } catch (java.util.NoSuchElementException e) {
                             }
                         }
                     }
-
                     System.out.println("Łączna suma wydatków: " + suma);
 
                 } catch (IOException e) {
