@@ -1,0 +1,27 @@
+1.try, catch, finally:
+
+Służą do obsługi błędów.To mechanizm obsługujący błedy, umożliwiający bezpieczne wykonywanie kodu.
+
+try - blok kodu w ktorym moze wystąpić błąd/wyjątek.
+
+catch - tu się dostaniemy jeśli w try wystąpi bład, i mówimy co trzeba zrobić z danym błędem zamiast odrazu kończyć program.
+
+finally - blok kodu wykonujący się zawsze nie ważne czy w bloku try wystąpi błąd czy nie. Czyści/zwalnia zasób np: zamyka plik.
+
+
+
+2.Dziedziczenie:
+
+Dziedziczenie umożliwia tworzenie klasy na podstawie klasy bazowej, klasa dziedzicząca przyjmuje metody i pola klasy bazowej przez co nie trzeba później tworzyć nowych zmiennych, nie trzeba definiować nowych rzeczy. Dziedziczenie m.in polepsza strukturę kodu (jest poprostu ładniejsza) i pozwala użyć jedenej klasy ile razy się zapragnie.
+Mówiąc wprost Dziedziczenie pomaga pisać czystszy i logiczniejszy kod bez żadnego mieszania sie nowych rzeczy.
+
+
+
+3.ArrayList i Array:
+
+Array:
+Tablica statyczna, to taki kontener do przechowywania danych jednego typu np: string, int. Przyjmuje tylko jeden stały rozmiar, nie można póżniej nic do niej dodawać usuwać itd., ale można zmieniać wartości.
+
+ArrayList:
+Dynamiczna lista, przyjmuje dynamiczny rozmiar poprzez metody takie jak: add, remove, size. Działa tylko z obiektami np: takie jak String, Integer. Żeby było można jej użyć trzeba zaimportować specjalną bibliotekę ArrayList.
+
